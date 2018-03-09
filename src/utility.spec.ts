@@ -1,7 +1,7 @@
 import * as assert from 'assert'
 
 import redis from './redis_client'
-import word2vec from './utility'
+import { word2vec } from './utility'
 
 function sleep(time: number) {
     return new Promise((resolve) => setTimeout(resolve, time))
