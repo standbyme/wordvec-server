@@ -1,3 +1,5 @@
+import redis from './redis_client'
+import word2vec from './utility'
 
 // tslint:disable-next-line:variable-name
 const Koa = require('koa')
@@ -10,8 +12,9 @@ app.use(cors())
 
 // tslint:disable-next-line:no-any
 app.use(async (ctx: any) => {
-    const vec = await (decodeURIComponent(ctx.request.body.word))
-    ctx.body = {vec}
+    const vec_opt = await word2vec(redis, decodeURIComponent(ctx.request.body.word))
+    const result_opt = vec_opt.map(vec => ({'status': 1, vec}))
+    ctx.body = result_opt.getOrElse({'status': 0})
 })
 
 app.listen(1234)
