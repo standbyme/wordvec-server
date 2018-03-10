@@ -1,4 +1,4 @@
 import * as Redis from 'ioredis'
-const redis = new Redis()
+const redis = new Redis(6379, 'redis')
 
 export default redis
